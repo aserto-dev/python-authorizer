@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "aserto-authorizer"
+name = "aserto_authorizer"
 version = "0.0.1"
 description = "gRPC client for Aserto Authorizer service instances"
 readme = "README.md"
