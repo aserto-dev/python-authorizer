@@ -57,7 +57,10 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'  
+        python-version: '3.10'
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
 
     - name: Install dependencies
       run: |
@@ -74,6 +77,8 @@ jobs:
 
           go run mage.go deps
 
+          poetry install --no-interaction
+
     - name: Clean generated code
       run: go run mage.go clean
 
@@ -81,7 +86,7 @@ jobs:
       run: echo -e "machine buf.build\npassword ${ASERTO_BUF_TOKEN}" >> ~/.netrc
 
     - name: Generate
-      run: go run mage.go generate
+      run: poetry run go run mage.go generate
 
     - name: Commit changes
       if: github.event_name == 'workflow_dispatch'
@@ -151,7 +156,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  
+          python-version: '3.10'
 
       - name: Build and push the python package
         run: go run mage.go release

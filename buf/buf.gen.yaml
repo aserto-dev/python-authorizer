@@ -6,3 +6,7 @@ plugins:
     out: ./src
   - remote: buf.build/protocolbuffers/plugins/python
     out: ./src
+  - name: "mypy"
+    out: "./src"
+  - name: "mypy_grpc"
+    out: "./src"
