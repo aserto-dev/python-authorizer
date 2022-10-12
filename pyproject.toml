@@ -33,6 +33,7 @@ typing-extensions = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.910"
+mypy-protobuf = "^3.3.0"
 
 [tool.mypy]
 show_error_codes = true
