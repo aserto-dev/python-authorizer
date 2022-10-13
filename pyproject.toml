@@ -22,7 +22,9 @@ classifiers = [
   "Typing :: Typed",
 ]
 packages = [
-    { include = "src" }
+    { include = "aserto", from = "src" },
+    { include = "google", from = "src" },
+    { include = "protoc_gen_openapiv2", from = "src" }
 ]
 
 
