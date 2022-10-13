@@ -77,6 +77,41 @@ TRACE_LEVEL_FAILS: TraceLevel.ValueType  # 4
 """ExplainFailsV1 ExplainModeV1 = "fails" """
 global___TraceLevel = TraceLevel
 
+class InfoRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___InfoRequest = InfoRequest
+
+class InfoResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    VERSION_FIELD_NUMBER: builtins.int
+    COMMIT_FIELD_NUMBER: builtins.int
+    DATE_FIELD_NUMBER: builtins.int
+    OS_FIELD_NUMBER: builtins.int
+    ARCH_FIELD_NUMBER: builtins.int
+    version: builtins.str
+    commit: builtins.str
+    date: builtins.str
+    os: builtins.str
+    arch: builtins.str
+    def __init__(
+        self,
+        *,
+        version: builtins.str = ...,
+        commit: builtins.str = ...,
+        date: builtins.str = ...,
+        os: builtins.str = ...,
+        arch: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["arch", b"arch", "commit", b"commit", "date", b"date", "os", b"os", "version", b"version"]) -> None: ...
+
+global___InfoResponse = InfoResponse
+
 class GetPolicyRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

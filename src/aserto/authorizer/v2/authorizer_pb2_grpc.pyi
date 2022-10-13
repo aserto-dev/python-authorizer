@@ -32,6 +32,10 @@ class AuthorizerStub:
         aserto.authorizer.v2.authorizer_pb2.GetPolicyRequest,
         aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse,
     ]
+    Info: grpc.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.InfoRequest,
+        aserto.authorizer.v2.authorizer_pb2.InfoResponse,
+    ]
 
 class AuthorizerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -70,5 +74,11 @@ class AuthorizerServicer(metaclass=abc.ABCMeta):
         request: aserto.authorizer.v2.authorizer_pb2.GetPolicyRequest,
         context: grpc.ServicerContext,
     ) -> aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse: ...
+    @abc.abstractmethod
+    def Info(
+        self,
+        request: aserto.authorizer.v2.authorizer_pb2.InfoRequest,
+        context: grpc.ServicerContext,
+    ) -> aserto.authorizer.v2.authorizer_pb2.InfoResponse: ...
 
 def add_AuthorizerServicer_to_server(servicer: AuthorizerServicer, server: grpc.Server) -> None: ...
