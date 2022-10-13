@@ -236,7 +236,8 @@ func Release() error {
 
 // Clean generated files
 func Clean() error {
-	err := os.RemoveAll(filepath.Join("src", "aserto"))
+
+	err := deleteDirContentWithException(filepath.Join("src", "aserto"), "__init__.py")
 	if err != nil {
 		return err
 	}
@@ -247,4 +248,31 @@ func Clean() error {
 	}
 
 	return os.RemoveAll(filepath.Join("src", "google"))
+}
+
+func deleteDirContentWithException(dir, exceptionFileName string) error {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return err
+	}
+
+	for _, entry := range entries {
+		if entry.IsDir() {
+			err := deleteDirContentWithException(filepath.Join(dir, entry.Name()), exceptionFileName)
+			if err != nil {
+				return err
+			}
+			continue
+		}
+		if entry.Name() == exceptionFileName {
+			continue
+		}
+		err = os.RemoveAll(filepath.Join(dir, entry.Name()))
+		if err != nil {
+			return err
+		}
+
+	}
+
+	return nil
 }
