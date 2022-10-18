@@ -58,4 +58,6 @@ __all__ = [
     "CompileRequest",
     "CompileResponse",
     "QueryResponse",
+
+    "AuthorizerStub",
 ]
