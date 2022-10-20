@@ -117,6 +117,7 @@ class Swagger(google.protobuf.message.Message):
     RESPONSES_FIELD_NUMBER: builtins.int
     SECURITY_DEFINITIONS_FIELD_NUMBER: builtins.int
     SECURITY_FIELD_NUMBER: builtins.int
+    TAGS_FIELD_NUMBER: builtins.int
     EXTERNAL_DOCS_FIELD_NUMBER: builtins.int
     EXTENSIONS_FIELD_NUMBER: builtins.int
     swagger: builtins.str
@@ -180,10 +181,19 @@ class Swagger(google.protobuf.message.Message):
         Individual operations can override this definition.
         """
     @property
+    def tags(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Tag]:
+        """A list of tags for API documentation control. Tags can be used for logical
+        grouping of operations by resources or any other qualifier.
+        """
+    @property
     def external_docs(self) -> global___ExternalDocumentation:
         """Additional external documentation."""
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
@@ -197,11 +207,12 @@ class Swagger(google.protobuf.message.Message):
         responses: collections.abc.Mapping[builtins.str, global___Response] | None = ...,
         security_definitions: global___SecurityDefinitions | None = ...,
         security: collections.abc.Iterable[global___SecurityRequirement] | None = ...,
+        tags: collections.abc.Iterable[global___Tag] | None = ...,
         external_docs: global___ExternalDocumentation | None = ...,
         extensions: collections.abc.Mapping[builtins.str, google.protobuf.struct_pb2.Value] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["external_docs", b"external_docs", "info", b"info", "security_definitions", b"security_definitions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["base_path", b"base_path", "consumes", b"consumes", "extensions", b"extensions", "external_docs", b"external_docs", "host", b"host", "info", b"info", "produces", b"produces", "responses", b"responses", "schemes", b"schemes", "security", b"security", "security_definitions", b"security_definitions", "swagger", b"swagger"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["base_path", b"base_path", "consumes", b"consumes", "extensions", b"extensions", "external_docs", b"external_docs", "host", b"host", "info", b"info", "produces", b"produces", "responses", b"responses", "schemes", b"schemes", "security", b"security", "security_definitions", b"security_definitions", "swagger", b"swagger", "tags", b"tags"]) -> None: ...
 
 global___Swagger = Swagger
 
@@ -339,7 +350,11 @@ class Operation(google.protobuf.message.Message):
         security declaration, an empty array can be used.
         """
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
@@ -483,7 +498,11 @@ class Response(google.protobuf.message.Message):
         See: https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/2.0.md#example-object
         """
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
@@ -569,7 +588,11 @@ class Info(google.protobuf.message.Message):
     with the specification version).
     """
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
@@ -936,7 +959,11 @@ class JSONSchema(google.protobuf.message.Message):
     def field_configuration(self) -> global___JSONSchema.FieldConfiguration:
         """Additional field level properties used when generating the OpenAPI v2 file."""
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
@@ -980,8 +1007,32 @@ class Tag(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class ExtensionsEntry(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        KEY_FIELD_NUMBER: builtins.int
+        VALUE_FIELD_NUMBER: builtins.int
+        key: builtins.str
+        @property
+        def value(self) -> google.protobuf.struct_pb2.Value: ...
+        def __init__(
+            self,
+            *,
+            key: builtins.str = ...,
+            value: google.protobuf.struct_pb2.Value | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+
+    NAME_FIELD_NUMBER: builtins.int
     DESCRIPTION_FIELD_NUMBER: builtins.int
     EXTERNAL_DOCS_FIELD_NUMBER: builtins.int
+    EXTENSIONS_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """The name of the tag. Use it to allow override of the name of a
+    global Tag object, then use that name to reference the tag throughout the
+    OpenAPI file.
+    """
     description: builtins.str
     """A short description for the tag. GFM syntax can be used for rich text
     representation.
@@ -989,14 +1040,22 @@ class Tag(google.protobuf.message.Message):
     @property
     def external_docs(self) -> global___ExternalDocumentation:
         """Additional external documentation for this tag."""
+    @property
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,
+        name: builtins.str = ...,
         description: builtins.str = ...,
         external_docs: global___ExternalDocumentation | None = ...,
+        extensions: collections.abc.Mapping[builtins.str, google.protobuf.struct_pb2.Value] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["external_docs", b"external_docs"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "external_docs", b"external_docs"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "extensions", b"extensions", "external_docs", b"external_docs", "name", b"name"]) -> None: ...
 
 global___Tag = Tag
 
@@ -1177,7 +1236,11 @@ class SecurityScheme(google.protobuf.message.Message):
         Valid for oauth2.
         """
     @property
-    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]: ...
+    def extensions(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, google.protobuf.struct_pb2.Value]:
+        """Custom properties that start with "x-" such as "x-foo" used to describe
+        extra functionality that is not covered by the standard OpenAPI Specification.
+        See: https://swagger.io/docs/specification/2-0/swagger-extensions/
+        """
     def __init__(
         self,
         *,

@@ -19,14 +19,8 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 class PolicyContext(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    NAME_FIELD_NUMBER: builtins.int
-    INSTANCE_LABEL_FIELD_NUMBER: builtins.int
     PATH_FIELD_NUMBER: builtins.int
     DECISIONS_FIELD_NUMBER: builtins.int
-    name: builtins.str
-    """policy name"""
-    instance_label: builtins.str
-    """label identifying the instance of the policy"""
     path: builtins.str
     """policy path aka package name"""
     @property
@@ -35,11 +29,9 @@ class PolicyContext(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str = ...,
-        instance_label: builtins.str = ...,
         path: builtins.str = ...,
         decisions: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["decisions", b"decisions", "instance_label", b"instance_label", "name", b"name", "path", b"path"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["decisions", b"decisions", "path", b"path"]) -> None: ...
 
 global___PolicyContext = PolicyContext
