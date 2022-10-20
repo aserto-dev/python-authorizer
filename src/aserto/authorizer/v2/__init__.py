@@ -11,16 +11,22 @@ from aserto.authorizer.v2.authorizer_pb2 import (
     TRACE_LEVEL_NOTES,
     TRACE_LEVEL_FAILS,
 
+    InfoRequest,
+    InfoResponse,
+
     GetPolicyRequest,
     GetPolicyResponse,
     ListPoliciesRequest,
     ListPoliciesResponse,
+
     DecisionTreeRequest,
     DecisionTreeOptions,
     DecisionTreeResponse,
+
     IsRequest,
     Decision,
     IsResponse,
+
     QueryOptions,
     QueryRequest,
     CompileRequest,
@@ -43,6 +49,9 @@ __all__ = [
     "TRACE_LEVEL_NOTES",
     "TRACE_LEVEL_FAILS",
 
+    "InfoRequest",
+    "InfoResponse",
+
     "GetPolicyRequest",
     "GetPolicyResponse",
     "ListPoliciesRequest",
@@ -58,4 +67,6 @@ __all__ = [
     "CompileRequest",
     "CompileResponse",
     "QueryResponse",
+
+    "AuthorizerStub",
 ]
