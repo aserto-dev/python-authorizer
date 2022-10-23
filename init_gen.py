@@ -80,6 +80,7 @@ def generate_init(modules: List[Module]) -> str:
     lines.append("__all__ = [")
     lines.extend(f'    "{symbol}",' for module in modules for symbol in module.symbols)
     lines.append("]")
+    lines.append("")
 
     return "\n".join(lines)
 
