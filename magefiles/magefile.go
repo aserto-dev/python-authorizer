@@ -109,8 +109,7 @@ func gen(bufImage, fileSources string) error {
 		}
 	}
 
-	return nil
-
+	return genInitFiles()
 }
 
 func getClientFiles(fileSources string) (map[string][]string, error) {
@@ -178,6 +177,10 @@ func getClientFiles(fileSources string) (map[string][]string, error) {
 	return clientFiles, nil
 }
 
+func genInitFiles() error {
+	return sh.RunV("python3", "./init_gen.py", "src/aserto")
+}
+
 func Bump(next string) error {
 	nextVersion, err := common.NextVersion(next)
 	if err != nil {
@@ -208,21 +211,11 @@ func Build() error {
 		return err
 	}
 
-	err = sh.RunV("python3", "-m", "pip", "install", "--upgrade", "build")
-	if err != nil {
-		return err
-	}
-
-	return sh.RunV("python3", "-m", "build")
+	return sh.RunV("poetry", "build")
 }
 
 func Push() error {
-	err := sh.RunV("python3", "-m", "pip", "install", "--upgrade", "twine")
-	if err != nil {
-		return err
-	}
-
-	return sh.RunV("python3", "-m", "twine", "upload", "dist/*")
+	return sh.RunV("poetry", "publish")
 }
 
 func Release() error {
@@ -236,18 +229,7 @@ func Release() error {
 
 // Clean generated files
 func Clean() error {
-
-	err := deleteDirContentWithException(filepath.Join("src", "aserto"), "__init__.py")
-	if err != nil {
-		return err
-	}
-
-	err = os.RemoveAll(filepath.Join("src", "protoc_gen_openapiv2"))
-	if err != nil {
-		return err
-	}
-
-	return os.RemoveAll(filepath.Join("src", "google"))
+	return os.RemoveAll("src")
 }
 
 func deleteDirContentWithException(dir, exceptionFileName string) error {

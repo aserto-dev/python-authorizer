@@ -12,13 +12,16 @@ poetry add aserto-authorizer
 ```
 ## Usage
 ```py
-from aserto_authorizer.aserto.authorizer.v2.api import (
+import grpc
+from aserto.authorizer.v2.api import (
     IdentityContext,
     IdentityType,
     PolicyContext,
+    PolicyInstance,
 )
-from aserto_authorizer.aserto.authorizer.v2 import (
+from aserto.authorizer.v2 import (
     AuthorizerStub,
+    DecisionTreeRequest,
     DecisionTreeOptions,
     DecisionTreeResponse,
     PathSeparator,
@@ -26,24 +29,27 @@ from aserto_authorizer.aserto.authorizer.v2 import (
 from grpclib.client import Channel
 
 
-async with Channel(host=host, port=port, ssl=True) as channel:
-    headers = {
-        "authorization": f"basic {ASERTO_API_KEY}"
-    }
+with grpc.secure_channel(
+    target="authorizer.prod.aserto.com:8443",
+    credentials=grpc.ssl_channel_credentials(),
+) as channel:
+    client = AuthorizerStub(channel)
 
-    client = AuthorizerStub(channel, metadata=headers)
-
-    response = await client.decision_tree(
-        policy_context=PolicyContext(
-            name=ASERTO_POLICY_NAME,
-            path=ASERTO_POLICY_PATH_ROOT,
-            decisions=["visible", "enabled", "allowed"],
-        ),
-        identity_context=IdentityContext(type=IdentityType.IDENTITY_TYPE_NONE),
-        resource_context=Proto.Struct(),
-        options=DecisionTreeOptions(
-            path_separator=PathSeparator.PATH_SEPARATOR_DOT,
-        ),
+    response = client.DecisionTree(
+        DecisionTreeRequest(
+            policy_context=PolicyContext(
+                path=ASERTO_POLICY_PATH_ROOT,
+                decisions=["visible", "enabled", "allowed"],
+            ),
+            policy_instance=PolicyInstance(
+                name=ASERTO_POLICY_NAME,
+                instance_label=ASERTO_POLICY_INSTANCE_LABEL,
+            ),
+            identity_context=IdentityContext(type=IdentityType.IDENTITY_TYPE_NONE),
+            options=DecisionTreeOptions(
+                path_separator=PathSeparator.PATH_SEPARATOR_DOT,
+            ),
+        )
     )
 
     assert response == DecisionTreeResponse(
