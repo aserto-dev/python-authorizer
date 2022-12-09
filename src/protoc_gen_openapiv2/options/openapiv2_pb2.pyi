@@ -62,7 +62,7 @@ class Swagger(google.protobuf.message.Message):
          };
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
          };
        };
        schemes: HTTPS;
@@ -292,6 +292,7 @@ class Operation(google.protobuf.message.Message):
     DEPRECATED_FIELD_NUMBER: builtins.int
     SECURITY_FIELD_NUMBER: builtins.int
     EXTENSIONS_FIELD_NUMBER: builtins.int
+    PARAMETERS_FIELD_NUMBER: builtins.int
     @property
     def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """A list of tags for API documentation control. Tags can be used for logical
@@ -355,6 +356,12 @@ class Operation(google.protobuf.message.Message):
         extra functionality that is not covered by the standard OpenAPI Specification.
         See: https://swagger.io/docs/specification/2-0/swagger-extensions/
         """
+    @property
+    def parameters(self) -> global___Parameters:
+        """Custom parameters such as HTTP request headers.
+        See: https://swagger.io/docs/specification/2-0/describing-parameters/
+        and https://swagger.io/specification/v2/#parameter-object.
+        """
     def __init__(
         self,
         *,
@@ -370,11 +377,97 @@ class Operation(google.protobuf.message.Message):
         deprecated: builtins.bool = ...,
         security: collections.abc.Iterable[global___SecurityRequirement] | None = ...,
         extensions: collections.abc.Mapping[builtins.str, google.protobuf.struct_pb2.Value] | None = ...,
+        parameters: global___Parameters | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["external_docs", b"external_docs"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["consumes", b"consumes", "deprecated", b"deprecated", "description", b"description", "extensions", b"extensions", "external_docs", b"external_docs", "operation_id", b"operation_id", "produces", b"produces", "responses", b"responses", "schemes", b"schemes", "security", b"security", "summary", b"summary", "tags", b"tags"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["external_docs", b"external_docs", "parameters", b"parameters"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["consumes", b"consumes", "deprecated", b"deprecated", "description", b"description", "extensions", b"extensions", "external_docs", b"external_docs", "operation_id", b"operation_id", "parameters", b"parameters", "produces", b"produces", "responses", b"responses", "schemes", b"schemes", "security", b"security", "summary", b"summary", "tags", b"tags"]) -> None: ...
 
 global___Operation = Operation
+
+class Parameters(google.protobuf.message.Message):
+    """`Parameters` is a representation of OpenAPI v2 specification's parameters object.
+    Note: This technically breaks compatibility with the OpenAPI 2 definition structure as we only
+    allow header parameters to be set here since we do not want users specifying custom non-header
+    parameters beyond those inferred from the Protobuf schema.
+    See: https://swagger.io/specification/v2/#parameter-object
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    HEADERS_FIELD_NUMBER: builtins.int
+    @property
+    def headers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HeaderParameter]:
+        """`Headers` is one or more HTTP header parameter.
+        See: https://swagger.io/docs/specification/2-0/describing-parameters/#header-parameters
+        """
+    def __init__(
+        self,
+        *,
+        headers: collections.abc.Iterable[global___HeaderParameter] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["headers", b"headers"]) -> None: ...
+
+global___Parameters = Parameters
+
+class HeaderParameter(google.protobuf.message.Message):
+    """`HeaderParameter` a HTTP header parameter.
+    See: https://swagger.io/specification/v2/#parameter-object
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    class _Type:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HeaderParameter._Type.ValueType], builtins.type):  # noqa: F821
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        UNKNOWN: HeaderParameter._Type.ValueType  # 0
+        STRING: HeaderParameter._Type.ValueType  # 1
+        NUMBER: HeaderParameter._Type.ValueType  # 2
+        INTEGER: HeaderParameter._Type.ValueType  # 3
+        BOOLEAN: HeaderParameter._Type.ValueType  # 4
+
+    class Type(_Type, metaclass=_TypeEnumTypeWrapper):
+        """`Type` is a a supported HTTP header type.
+        See https://swagger.io/specification/v2/#parameterType.
+        """
+
+    UNKNOWN: HeaderParameter.Type.ValueType  # 0
+    STRING: HeaderParameter.Type.ValueType  # 1
+    NUMBER: HeaderParameter.Type.ValueType  # 2
+    INTEGER: HeaderParameter.Type.ValueType  # 3
+    BOOLEAN: HeaderParameter.Type.ValueType  # 4
+
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    TYPE_FIELD_NUMBER: builtins.int
+    FORMAT_FIELD_NUMBER: builtins.int
+    REQUIRED_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    """`Name` is the header name."""
+    description: builtins.str
+    """`Description` is a short description of the header."""
+    type: global___HeaderParameter.Type.ValueType
+    """`Type` is the type of the object. The value MUST be one of "string", "number", "integer", or "boolean". The "array" type is not supported.
+    See: https://swagger.io/specification/v2/#parameterType.
+    """
+    format: builtins.str
+    """`Format` The extending format for the previously mentioned type."""
+    required: builtins.bool
+    """`Required` indicates if the header is optional"""
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        description: builtins.str = ...,
+        type: global___HeaderParameter.Type.ValueType = ...,
+        format: builtins.str = ...,
+        required: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["description", b"description", "format", b"format", "name", b"name", "required", b"required", "type", b"type"]) -> None: ...
+
+global___HeaderParameter = HeaderParameter
 
 class Header(google.protobuf.message.Message):
     """`Header` is a representation of OpenAPI v2 specification's Header object.
@@ -536,7 +629,7 @@ class Info(google.protobuf.message.Message):
          };
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
          };
        };
        ...
@@ -668,7 +761,7 @@ class License(google.protobuf.message.Message):
          ...
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/master/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
          };
          ...
        };

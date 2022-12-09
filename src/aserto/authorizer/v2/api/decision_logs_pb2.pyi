@@ -4,6 +4,7 @@ isort:skip_file
 """
 import aserto.authorizer.v2.api.identity_context_pb2
 import aserto.authorizer.v2.api.policy_context_pb2
+import aserto.authorizer.v2.api.policy_instance_pb2
 import builtins
 import collections.abc
 import google.protobuf.descriptor
@@ -63,6 +64,7 @@ class Decision(google.protobuf.message.Message):
     OUTCOMES_FIELD_NUMBER: builtins.int
     RESOURCE_FIELD_NUMBER: builtins.int
     ANNOTATIONS_FIELD_NUMBER: builtins.int
+    TENANT_ID_FIELD_NUMBER: builtins.int
     id: builtins.str
     """unique id, replay a decision starting with this, also useful to de-dup"""
     @property
@@ -85,6 +87,8 @@ class Decision(google.protobuf.message.Message):
     @property
     def annotations(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """annotations that may be added to a decision"""
+    tenant_id: builtins.str
+    """id of the tenant that generated the decision"""
     def __init__(
         self,
         *,
@@ -96,9 +100,11 @@ class Decision(google.protobuf.message.Message):
         outcomes: collections.abc.Mapping[builtins.str, builtins.bool] | None = ...,
         resource: google.protobuf.struct_pb2.Struct | None = ...,
         annotations: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
+        tenant_id: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["policy", b"policy", "resource", b"resource", "timestamp", b"timestamp", "user", b"user"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["annotations", b"annotations", "id", b"id", "outcomes", b"outcomes", "path", b"path", "policy", b"policy", "resource", b"resource", "timestamp", b"timestamp", "user", b"user"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["_tenant_id", b"_tenant_id", "policy", b"policy", "resource", b"resource", "tenant_id", b"tenant_id", "timestamp", b"timestamp", "user", b"user"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["_tenant_id", b"_tenant_id", "annotations", b"annotations", "id", b"id", "outcomes", b"outcomes", "path", b"path", "policy", b"policy", "resource", b"resource", "tenant_id", b"tenant_id", "timestamp", b"timestamp", "user", b"user"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["_tenant_id", b"_tenant_id"]) -> typing_extensions.Literal["tenant_id"] | None: ...
 
 global___Decision = Decision
 
@@ -139,6 +145,7 @@ class DecisionPolicy(google.protobuf.message.Message):
     REGISTRY_IMAGE_FIELD_NUMBER: builtins.int
     REGISTRY_TAG_FIELD_NUMBER: builtins.int
     REGISTRY_DIGEST_FIELD_NUMBER: builtins.int
+    POLICY_INSTANCE_FIELD_NUMBER: builtins.int
     @property
     def context(self) -> aserto.authorizer.v2.api.policy_context_pb2.PolicyContext:
         """policy context used in the decision"""
@@ -150,6 +157,9 @@ class DecisionPolicy(google.protobuf.message.Message):
     """tag of the policy image (e.g. 0.8.2 or latest)"""
     registry_digest: builtins.str
     """digest of the policy image"""
+    @property
+    def policy_instance(self) -> aserto.authorizer.v2.api.policy_instance_pb2.PolicyInstance:
+        """policy instance used in decision"""
     def __init__(
         self,
         *,
@@ -158,8 +168,9 @@ class DecisionPolicy(google.protobuf.message.Message):
         registry_image: builtins.str = ...,
         registry_tag: builtins.str = ...,
         registry_digest: builtins.str = ...,
+        policy_instance: aserto.authorizer.v2.api.policy_instance_pb2.PolicyInstance | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["context", b"context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["context", b"context", "registry_digest", b"registry_digest", "registry_image", b"registry_image", "registry_service", b"registry_service", "registry_tag", b"registry_tag"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["context", b"context", "policy_instance", b"policy_instance"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["context", b"context", "policy_instance", b"policy_instance", "registry_digest", b"registry_digest", "registry_image", b"registry_image", "registry_service", b"registry_service", "registry_tag", b"registry_tag"]) -> None: ...
 
 global___DecisionPolicy = DecisionPolicy
