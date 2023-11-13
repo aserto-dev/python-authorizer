@@ -30,6 +30,8 @@ class _IdentityTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """Sub(ject), identity field contains an oAUTH subject."""
     IDENTITY_TYPE_JWT: _IdentityType.ValueType  # 3
     """JWT, identity field contains a JWT access token."""
+    IDENTITY_TYPE_MANUAL: _IdentityType.ValueType  # 4
+    """Manual, propagates thw identity field as-is, without validation, into the input object."""
 
 class IdentityType(_IdentityType, metaclass=_IdentityTypeEnumTypeWrapper):
     """Identity types, describes the payload type of the identity field inside the IdentityContext message."""
@@ -42,6 +44,8 @@ IDENTITY_TYPE_SUB: IdentityType.ValueType  # 2
 """Sub(ject), identity field contains an oAUTH subject."""
 IDENTITY_TYPE_JWT: IdentityType.ValueType  # 3
 """JWT, identity field contains a JWT access token."""
+IDENTITY_TYPE_MANUAL: IdentityType.ValueType  # 4
+"""Manual, propagates thw identity field as-is, without validation, into the input object."""
 global___IdentityType = IdentityType
 
 class IdentityContext(google.protobuf.message.Message):

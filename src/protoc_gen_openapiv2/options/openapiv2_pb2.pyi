@@ -62,7 +62,7 @@ class Swagger(google.protobuf.message.Message):
          };
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
          };
        };
        schemes: HTTPS;
@@ -629,7 +629,7 @@ class Info(google.protobuf.message.Message):
          };
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
          };
        };
        ...
@@ -761,7 +761,7 @@ class License(google.protobuf.message.Message):
          ...
          license: {
            name: "BSD 3-Clause License";
-           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE.txt";
+           url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
          };
          ...
        };
