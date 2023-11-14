@@ -31,15 +31,19 @@ packages = [
 
 
 [tool.poetry.dependencies]
-certifi = "^2021.5.30"
 python = "^3.8"
-typing-extensions = "^4.8.0"
+typing-extensions = ">=3.10.0"
+grpcio = "^1.59.2"
 
 [tool.poetry.dev-dependencies]
-mypy = "^1.6.1"
+mypy = "1.7.0"
 mypy-protobuf = "^3.5.0"
+black = "^23.11.0"
+isort = "^5.12.0"
+grpc-stubs = "^1.53.0"
 
 [tool.mypy]
+explicit_package_bases = true
 show_error_codes = true
 check_untyped_defs = false
 disallow_any_decorated = false
