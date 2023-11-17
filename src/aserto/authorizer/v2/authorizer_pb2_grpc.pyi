@@ -4,10 +4,21 @@ isort:skip_file
 """
 import abc
 import aserto.authorizer.v2.authorizer_pb2
+import collections.abc
 import grpc
+import grpc.aio
+import typing
+
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type: ignore
+    ...
 
 class AuthorizerStub:
-    def __init__(self, channel: grpc.Channel) -> None: ...
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     DecisionTree: grpc.UnaryUnaryMultiCallable[
         aserto.authorizer.v2.authorizer_pb2.DecisionTreeRequest,
         aserto.authorizer.v2.authorizer_pb2.DecisionTreeResponse,
@@ -37,48 +48,78 @@ class AuthorizerStub:
         aserto.authorizer.v2.authorizer_pb2.InfoResponse,
     ]
 
+class AuthorizerAsyncStub:
+    DecisionTree: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.DecisionTreeRequest,
+        aserto.authorizer.v2.authorizer_pb2.DecisionTreeResponse,
+    ]
+    Is: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.IsRequest,
+        aserto.authorizer.v2.authorizer_pb2.IsResponse,
+    ]
+    Query: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.QueryRequest,
+        aserto.authorizer.v2.authorizer_pb2.QueryResponse,
+    ]
+    Compile: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.CompileRequest,
+        aserto.authorizer.v2.authorizer_pb2.CompileResponse,
+    ]
+    ListPolicies: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.ListPoliciesRequest,
+        aserto.authorizer.v2.authorizer_pb2.ListPoliciesResponse,
+    ]
+    GetPolicy: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.GetPolicyRequest,
+        aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse,
+    ]
+    Info: grpc.aio.UnaryUnaryMultiCallable[
+        aserto.authorizer.v2.authorizer_pb2.InfoRequest,
+        aserto.authorizer.v2.authorizer_pb2.InfoResponse,
+    ]
+
 class AuthorizerServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def DecisionTree(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.DecisionTreeRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.DecisionTreeResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.DecisionTreeResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.DecisionTreeResponse]]: ...
     @abc.abstractmethod
     def Is(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.IsRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.IsResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.IsResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.IsResponse]]: ...
     @abc.abstractmethod
     def Query(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.QueryRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.QueryResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.QueryResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.QueryResponse]]: ...
     @abc.abstractmethod
     def Compile(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.CompileRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.CompileResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.CompileResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.CompileResponse]]: ...
     @abc.abstractmethod
     def ListPolicies(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.ListPoliciesRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.ListPoliciesResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.ListPoliciesResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.ListPoliciesResponse]]: ...
     @abc.abstractmethod
     def GetPolicy(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.GetPolicyRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.GetPolicyResponse]]: ...
     @abc.abstractmethod
     def Info(
         self,
         request: aserto.authorizer.v2.authorizer_pb2.InfoRequest,
-        context: grpc.ServicerContext,
-    ) -> aserto.authorizer.v2.authorizer_pb2.InfoResponse: ...
+        context: _ServicerContext,
+    ) -> typing.Union[aserto.authorizer.v2.authorizer_pb2.InfoResponse, collections.abc.Awaitable[aserto.authorizer.v2.authorizer_pb2.InfoResponse]]: ...
 
-def add_AuthorizerServicer_to_server(servicer: AuthorizerServicer, server: grpc.Server) -> None: ...
+def add_AuthorizerServicer_to_server(servicer: AuthorizerServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...
