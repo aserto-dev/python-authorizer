@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aserto_authorizer"
-version = "0.20.2"
+version = "0.20.2.rc1"
 description = "gRPC client for Aserto Authorizer service instances"
 readme = "README.md"
 authors = ["Aserto, Inc. <pypi@aserto.com>"]
@@ -32,37 +32,13 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-grpcio = ">=1.58.0"
-typing-extensions = ">=3.10.0"
+grpcio = "^1.49"
+protobuf = "^4.21.0"
 
 [tool.poetry.dev-dependencies]
 black = "^23.11.0"
 isort = "^5.12.0"
 grpc-stubs = "^1.53.0"
-
-[tool.mypy]
-explicit_package_bases = true
-show_error_codes = true
-check_untyped_defs = false
-disallow_any_decorated = false
-disallow_any_explicit = false
-disallow_any_expr = false
-disallow_any_generics = false
-disallow_any_unimported = true
-disallow_incomplete_defs = true
-disallow_subclassing_any = true
-disallow_untyped_calls = true
-disallow_untyped_decorators = true
-disallow_untyped_defs = true
-implicit_reexport = true
-no_implicit_optional = true
-strict_equality = true
-strict_optional = false
-warn_no_return = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unreachable = true
-warn_unused_ignores = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

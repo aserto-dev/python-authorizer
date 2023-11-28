@@ -113,6 +113,14 @@ docs = ["furo (>=2023.7.26)", "proselint (>=0.13)", "sphinx-autodoc-typehints (>
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest-cov (>=4.1)", "pytest-mock (>=3.11.1)", "pytest (>=7.4)"]
 
 [[package]]
+name = "protobuf"
+version = "4.25.1"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -124,14 +132,14 @@ python-versions = ">=3.7"
 name = "typing-extensions"
 version = "4.8.0"
 description = "Backported and Experimental Type Hints for Python 3.8+"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f460ff98336c56743b0510e5b9287143e7205b268e9f7fdebf820503f81012e0"
+content-hash = "4c31e0819eec9e519f5dac6107b01404d1a3509ace5245ee2a3ff1d7165c0ff3"
 
 [metadata.files]
 black = []
@@ -144,5 +152,6 @@ mypy-extensions = []
 packaging = []
 pathspec = []
 platformdirs = []
+protobuf = []
 tomli = []
 typing-extensions = []
