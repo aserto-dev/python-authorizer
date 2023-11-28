@@ -91,7 +91,7 @@ class Visitor(ast.NodeVisitor):
         self._in_const: bool = False
 
     def visit_ClassDef(self, node: ast.ClassDef):
-        if self.is_public(node.name):
+        if self.is_public(node.name) and not node.name.endswith("AsyncStub"):
             self.symbols.append(node.name)
 
     def is_public(self, name: str) -> bool:
