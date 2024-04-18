@@ -11,10 +11,6 @@ from aserto.authorizer.v2.api.identity_context_pb2 import (
     IdentityContext,
 )
 
-from aserto.authorizer.v2.api.policy_context_pb2 import (
-    PolicyContext,
-)
-
 from aserto.authorizer.v2.api.policy_instance_pb2 import (
     PolicyInstance,
 )
@@ -23,13 +19,17 @@ from aserto.authorizer.v2.api.module_pb2 import (
     Module,
 )
 
+from aserto.authorizer.v2.api.policy_context_pb2 import (
+    PolicyContext,
+)
+
 __all__ = [
     "Decision",
     "DecisionUser",
     "DecisionPolicy",
     "IdentityType",
     "IdentityContext",
-    "PolicyContext",
     "PolicyInstance",
     "Module",
+    "PolicyContext",
 ]
