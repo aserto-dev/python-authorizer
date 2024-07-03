@@ -32,12 +32,12 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-grpcio = "^1.49"
-protobuf = "^4.21.0"
+grpcio = "^1.64.1"
+protobuf = "^5.27.2"
 
 [tool.poetry.dev-dependencies]
-black = "^23.11.0"
-isort = "^5.12.0"
+black = "^24.4.2"
+isort = "^5.13.0"
 grpc-stubs = "^1.53.0"
 
 [build-system]
