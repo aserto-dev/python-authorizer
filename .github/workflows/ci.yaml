@@ -134,7 +134,7 @@ jobs:
         env:
           # When using a PYPI API token, the user name must be set to "__token__"
           POETRY_HTTP_BASIC_PYPI_USERNAME: __token__
-        run: poetry publish
+        run: poetry publish --build
       -
         name: Bump to the next version
         run: poetry version patch
