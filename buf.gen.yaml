@@ -1,12 +1,16 @@
-version: v1
-managed:
-  enabled: true
+---
+version: v2
+
 plugins:
-  - plugin: buf.build/grpc/python
+  -
+    remote: buf.build/protocolbuffers/python:v30.1
     out: ./src
-  - plugin: buf.build/protocolbuffers/python
+  -
+    remote: buf.build/grpc/python:v1.71.0
     out: ./src
-  - plugin: buf.build/protocolbuffers/pyi
-    out: "./src"
-  - plugin: "buf.build/community/nipunn1313-mypy-grpc"
-    out: "./src"
+  -
+    remote: buf.build/community/nipunn1313-mypy:v3.6.0
+    out: ./src
+  -
+    remote: buf.build/community/nipunn1313-mypy-grpc:v3.6.0
+    out: ./src

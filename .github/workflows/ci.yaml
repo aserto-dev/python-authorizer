@@ -20,7 +20,7 @@ on:
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
   BUF_REPO: buf.build/aserto-dev/authorizer
-  BUF_VERSION: "1.47.2"
+  BUF_VERSION: "1.50.0"
   PYTHON_VERSION: "3.13"
 
 jobs:
