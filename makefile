@@ -17,7 +17,7 @@ EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 VAULT_VER          := 1.8.12
 SVU_VER            := 2.2.0
-BUF_VER            := 1.47.2
+BUF_VER            := 1.50.0
 
 PROJECT            := authorizer
 BUF_USER           := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_USER kv/buf.build)
