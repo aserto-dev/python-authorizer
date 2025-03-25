@@ -2,6 +2,7 @@
 
 from aserto.authorizer.v2.authorizer_pb2_grpc import (
     AuthorizerStub,
+    AuthorizerAsyncStub,
     AuthorizerServicer,
 )
 
@@ -29,6 +30,7 @@ from aserto.authorizer.v2.authorizer_pb2 import (
 
 __all__ = [
     "AuthorizerStub",
+    "AuthorizerAsyncStub",
     "AuthorizerServicer",
     "PathSeparator",
     "TraceLevel",
