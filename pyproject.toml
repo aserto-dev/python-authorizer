@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aserto_authorizer"
-version = "0.20.7"
+version = "0.20.8"
 description = "gRPC client for Aserto Authorizer service instances"
 readme = "README.md"
 authors = ["Aserto, Inc. <pypi@aserto.com>"]
